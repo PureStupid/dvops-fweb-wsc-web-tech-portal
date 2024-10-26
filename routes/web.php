@@ -22,7 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::middleware(VerifyAdminRole::class)->resource('users', UserController::class);
+    Route::middleware(VerifyAdminRole::class)->resource('users', UserController::class,['except'=>'index']);
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
 
 });
 
