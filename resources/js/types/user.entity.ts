@@ -14,7 +14,7 @@ export interface User {
     email: string;
     gender: Gender;
     phone_number: number;
-    avatar: string;
+    avatar?: string;
     role: Role;
     email_verified_at?: string;
 }
