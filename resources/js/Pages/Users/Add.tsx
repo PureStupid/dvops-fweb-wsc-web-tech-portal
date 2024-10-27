@@ -13,7 +13,7 @@ const Index: React.FC = () => {
         avatar_file: File | undefined; // Add avatarFile for file upload
     }
 
-    const { data, setData, errors, processing } = useForm<UserForm>({
+    const { data, setData, errors, processing, post } = useForm<UserForm>({
         name: '',
         email: '',
         gender: undefined,
@@ -25,7 +25,7 @@ const Index: React.FC = () => {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        console.log(data);
+        post(route('users.store'));
     };
 
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,13 +149,16 @@ const Index: React.FC = () => {
                         <TextInput
                             id="avatar"
                             type="file"
-                            name="avatar"
+                            name="avatar_file"
                             className="mt-1 block w-full border bg-white p-2 text-sm text-gray-900 file:p-1 focus:outline-none"
                             isFocused={true}
                             onChange={handleFile}
                             accept=".png,.jpg,.jpeg"
                         />
-                        <InputError message={errors.avatar} className="mt-2" />
+                        <InputError
+                            message={errors.avatar_file}
+                            className="mt-2"
+                        />
                     </div>
                     <div>
                         <InputLabel
