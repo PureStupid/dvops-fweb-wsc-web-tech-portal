@@ -36,21 +36,30 @@ class UserController extends Controller
             'gender' => 'required|in:female,male',
             'role' => 'required|in:student,lecturer',
             'phone_number' => ['required', 'regex:/^[8-9]\d{7}$/'],
-            'avatar' => 'file|mimes:png,jpg,jpeg'
+            'avatar_file' => 'file|mimes:png,jpg,jpeg'
         ]);
 
         $name = Str::title($request->name);
         $emailDomain = Str::after($request->email, '@');
         if (($request->role === 'lecturer' && $emailDomain !== 'tp.edu.sg') || ($request->role === 'student' && $emailDomain !== 'student.tp.edu.sg')) {
-            return redirect()->route('dashboard')->withErrors(['emaii' => 'Invalid email domain.'])->withInput();
+            return back()->withErrors(['email' => 'Invalid email domain.'])->withInput();
         }
         if ($request->role === 'student') {
             $adminNumber = Str::before($request->email, '@');
             if (!preg_match('/^2\d{6}[a-zA-Z]$/', $adminNumber)) {
-                return redirect()->route('dashboard')->withErrors(['emaii' => 'Student email format is invalid'])->withInput();
+                return back()->withErrors(['email' => 'Student email format is invalid'])->withInput();
             }
         }
 
+        $user = User::create([...$request->all(), 'name' => $name]);
+        $image = $request->file('avatar_file');
+
+        if ($image) {
+            $avatar = $image->storePublicly('avatar');
+            $user->update(compact('avatar'));
+        }
+
+        return redirect()->route('users.index')->with('message', 'User created successfully');
 
 
     }
