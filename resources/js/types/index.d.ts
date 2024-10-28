@@ -5,4 +5,8 @@ export type PageProps<
     auth: {
         user: User;
     };
+    flash?: {
+        message?: string;
+        [key: string]: unknown; // Allow for other flash messages if needed
+    };
 };

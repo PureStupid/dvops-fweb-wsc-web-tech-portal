@@ -1,11 +1,12 @@
 import PrimaryButton from '@/Components/PrimaryButton';
+import SuccessAlert from '@/Components/SuccessAlert';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
 import { PageProps } from '@/types';
 import { Role } from '@/types/user.entity';
 import { Head, Link } from '@inertiajs/react';
 import React from 'react';
 
-const Index: React.FC<PageProps> = ({ auth }) => {
+const Index: React.FC<PageProps> = ({ auth, flash }) => {
     return (
         <Authenticated
             header={
@@ -15,14 +16,18 @@ const Index: React.FC<PageProps> = ({ auth }) => {
             }
         >
             <Head title="Users" />
-
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {auth.user.role === Role.Lecturer && (
-                        <Link href={route('users.create')}>
-                            <PrimaryButton>Add User</PrimaryButton>
-                        </Link>
-                    )}
+                    <>
+                        {flash?.message && (
+                            <SuccessAlert>{flash.message}</SuccessAlert>
+                        )}
+                        {auth.user.role === Role.Lecturer && (
+                            <Link href={route('users.create')}>
+                                <PrimaryButton>Add User</PrimaryButton>
+                            </Link>
+                        )}
+                    </>
                 </div>
             </div>
         </Authenticated>
