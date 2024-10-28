@@ -78,11 +78,9 @@ const Index: React.FC = () => {
                         <InputError message={errors.email} className="mt-2" />
                     </div>
                     <div>
-                        <InputLabel
-                            htmlFor="genderRadioButtonGroup"
-                            value="Gender"
-                        />
-
+                        <div className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Gender
+                        </div>
                         <div
                             className="mt-1 grid grid-cols-2 gap-x-2"
                             id="genderRadioButtonGroup"
@@ -161,10 +159,9 @@ const Index: React.FC = () => {
                         />
                     </div>
                     <div>
-                        <InputLabel
-                            htmlFor="roleRadioButtonGroup"
-                            value="Role"
-                        />
+                        <div className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Role
+                        </div>
 
                         <div
                             className="mt-1 grid grid-cols-2 gap-x-2"
