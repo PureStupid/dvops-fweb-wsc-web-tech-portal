@@ -30,16 +30,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->has('name')) {
+            $request->merge(['name' => Str::title($request->name)]);
+        }
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:users',
             'email' => 'required|email|unique:users',
             'gender' => 'required|in:female,male',
             'role' => 'required|in:student,lecturer',
-            'phone_number' => ['required', 'regex:/^[8-9]\d{7}$/'],
+            'phone_number' => ['required', 'regex:/^[8-9]\d{7}$/', 'unique:users'],
             'avatar_file' => 'file|mimes:png,jpg,jpeg'
         ]);
 
-        $name = Str::title($request->name);
         $emailDomain = Str::after($request->email, '@');
         if (($request->role === 'lecturer' && $emailDomain !== 'tp.edu.sg') || ($request->role === 'student' && $emailDomain !== 'student.tp.edu.sg')) {
             return back()->withErrors(['email' => 'Invalid email domain.'])->withInput();
@@ -51,7 +53,7 @@ class UserController extends Controller
             }
         }
 
-        $user = User::create([...$request->all(), 'name' => $name]);
+        $user = User::create($request->all());
         $image = $request->file('avatar_file');
 
         if ($image) {
