@@ -24,7 +24,10 @@ const Index: React.FC = () => {
     });
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-
+        if (data.email) {
+            data.email += Role.Student ? '@student.tp.edu.sg' : '@tp.edu.sg';
+        }
+        console.log(data);
         post(route('users.store'));
     };
 
@@ -46,6 +49,40 @@ const Index: React.FC = () => {
             <div className="mx-auto max-w-lg sm:p-6 lg:p-8">
                 <form onSubmit={submit} className="space-y-4">
                     <div>
+                        <div className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Role
+                        </div>
+
+                        <div
+                            className="grid grid-cols-2 gap-x-2"
+                            id="roleRadioButtonGroup"
+                        >
+                            <RadioButton
+                                id="studentRadioButton"
+                                value="student"
+                                label="Student"
+                                name="role"
+                                checked={data.role === Role.Student}
+                                onChange={(e) =>
+                                    setData('role', e.target.value as Role)
+                                }
+                                required
+                            />
+                            <RadioButton
+                                id="lecturerRadioButton"
+                                value="lecturer"
+                                label="Lecturer"
+                                name="role"
+                                checked={data.role === Role.Lecturer}
+                                onChange={(e) =>
+                                    setData('role', e.target.value as Role)
+                                }
+                                required
+                            />
+                        </div>
+                        <InputError message={errors.role} className="mt-2" />
+                    </div>
+                    <div>
                         <InputLabel htmlFor="name" value="Name" />
 
                         <TextInput
@@ -53,7 +90,7 @@ const Index: React.FC = () => {
                             type="text"
                             name="name"
                             value={data.name}
-                            className="mt-1 block w-full"
+                            className="block w-full"
                             isFocused={true}
                             onChange={(e) => setData('name', e.target.value)}
                             required
@@ -66,12 +103,17 @@ const Index: React.FC = () => {
 
                         <TextInput
                             id="email"
-                            type="email"
+                            type="text"
                             name="email"
-                            value={data.email}
-                            className="mt-1 block w-full"
+                            value={data.email?.split('@')[0]}
+                            className="block w-full"
                             isFocused={true}
                             onChange={(e) => setData('email', e.target.value)}
+                            trailingHelperText={
+                                data.role === Role.Student
+                                    ? '@student.tp.edu.sg'
+                                    : '@tp.edu.sg'
+                            }
                             required
                         />
 
@@ -82,7 +124,7 @@ const Index: React.FC = () => {
                             Gender
                         </div>
                         <div
-                            className="mt-1 grid grid-cols-2 gap-x-2"
+                            className="grid grid-cols-2 gap-x-2"
                             id="genderRadioButtonGroup"
                         >
                             <RadioButton
@@ -125,7 +167,8 @@ const Index: React.FC = () => {
                                     ? ''
                                     : data.phone_number
                             }
-                            className="mt-1 block w-full"
+                            leadingHelperText="+65"
+                            className="block w-full"
                             isFocused={true}
                             onChange={(e) =>
                                 setData(
@@ -148,7 +191,7 @@ const Index: React.FC = () => {
                             id="avatar"
                             type="file"
                             name="avatar_file"
-                            className="mt-1 block w-full border bg-white p-2 text-sm text-gray-900 file:p-1 focus:outline-none"
+                            className="block w-full border bg-white p-2 text-sm text-gray-900 file:p-1 focus:outline-none"
                             isFocused={true}
                             onChange={handleFile}
                             accept=".png,.jpg,.jpeg"
@@ -158,42 +201,9 @@ const Index: React.FC = () => {
                             className="mt-2"
                         />
                     </div>
-                    <div>
-                        <div className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Role
-                        </div>
 
-                        <div
-                            className="mt-1 grid grid-cols-2 gap-x-2"
-                            id="roleRadioButtonGroup"
-                        >
-                            <RadioButton
-                                id="studentRadioButton"
-                                value="student"
-                                label="Student"
-                                name="role"
-                                checked={data.role === Role.Student}
-                                onChange={(e) =>
-                                    setData('role', e.target.value as Role)
-                                }
-                                required
-                            />
-                            <RadioButton
-                                id="lecturerRadioButton"
-                                value="lecturer"
-                                label="Lecturer"
-                                name="role"
-                                checked={data.role === Role.Lecturer}
-                                onChange={(e) =>
-                                    setData('role', e.target.value as Role)
-                                }
-                                required
-                            />
-                        </div>
-                        <InputError message={errors.role} className="mt-2" />
-                    </div>
                     <div className="flex justify-end">
-                        <PrimaryButton className="mt-1" disabled={processing}>
+                        <PrimaryButton className="" disabled={processing}>
                             Add
                         </PrimaryButton>
                     </div>
