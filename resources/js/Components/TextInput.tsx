@@ -49,7 +49,7 @@ export default forwardRef(function TextInput(
                     'block w-full min-w-0 flex-1 rounded border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ' +
                     className +
                     (trailingHelperText !== '' ? ' rounded-e-none' : '') +
-                    (trailingHelperText !== '' ? ' rounded-s-none' : '')
+                    (leadingHelperText !== '' ? ' rounded-s-none' : '')
                 }
             />
             {trailingHelperText !== '' && (
