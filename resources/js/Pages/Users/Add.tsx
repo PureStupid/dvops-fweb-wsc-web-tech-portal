@@ -24,7 +24,7 @@ const Index: React.FC = () => {
     });
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        if (data.email) {
+        if (data.email && !data.email.includes('@')) {
             data.email += Role.Student ? '@student.tp.edu.sg' : '@tp.edu.sg';
         }
         console.log(data);
