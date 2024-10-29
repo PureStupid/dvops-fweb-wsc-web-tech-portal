@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('avatar')->nullable();
             $table->enum('role', ['student', 'lecturer']);
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->default(Hash::make('#WSCTech123'));
+            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
