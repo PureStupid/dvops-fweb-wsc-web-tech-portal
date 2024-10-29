@@ -38,7 +38,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'gender' => 'required|in:female,male',
             'role' => 'required|in:student,lecturer',
-            'phone_number' => ['required', 'regex:/^[8-9]\d{7}$/', 'unique:users'],
+            'phone_number' => ['required', 'regex:/^[6,8-9]\d{7}$/', 'unique:users'],
             'avatar_file' => 'file|mimes:png,jpg,jpeg'
         ]);
 
