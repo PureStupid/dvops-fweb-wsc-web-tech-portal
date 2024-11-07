@@ -4,7 +4,7 @@ const RadioButton: React.FC<
     InputHTMLAttributes<HTMLInputElement> & { label: string }
 > = ({ className = '', label, ...props }) => {
     return (
-        <div className="flex items-center rounded border border-gray-200 bg-white ps-4 dark:border-gray-700">
+        <div className="flex items-center rounded border border-gray-200 bg-white ps-4 dark:border-gray-700 dark:bg-gray-700">
             <input
                 {...props}
                 type="radio"
@@ -15,7 +15,7 @@ const RadioButton: React.FC<
             />
             <label
                 htmlFor={props.id}
-                className='class="w-full dark:text-gray-300" ms-2 py-4 text-sm font-medium text-gray-900'
+                className="ms-2 w-full py-4 text-sm font-medium text-gray-900 dark:text-gray-300"
             >
                 {label}
             </label>
