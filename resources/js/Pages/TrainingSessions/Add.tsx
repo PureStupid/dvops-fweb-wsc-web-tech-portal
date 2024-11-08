@@ -37,6 +37,18 @@ const Index: React.FC = () => {
         return durationInHours;
     };
 
+    const calculateMinEndTime = (startTime: string): string => {
+        // Minimum end time is 15 minutes after the start time
+        const [startHours, startMinutes] = startTime.split(':').map(Number);
+        const startDate = new Date();
+        startDate.setHours(startHours, startMinutes);
+        startDate.setMinutes(startDate.getMinutes() + 15);
+
+        const minEndHours = String(startDate.getHours()).padStart(2, '0');
+        const minEndMinutes = String(startDate.getMinutes()).padStart(2, '0');
+        return `${minEndHours}:${minEndMinutes}`;
+    };
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         if (data.start_time && data.end_time) {
@@ -152,7 +164,11 @@ const Index: React.FC = () => {
                         type="time"
                         className="w-full"
                         value={data.end_time}
-                        min={data.start_time}
+                        min={
+                            data.start_time
+                                ? calculateMinEndTime(data.start_time)
+                                : '09:15'
+                        }
                         max={'18:00'}
                         step={'900'} // 15 minutes
                         onChange={(e) => setData('end_time', e.target.value)}

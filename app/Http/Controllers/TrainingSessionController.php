@@ -30,13 +30,13 @@ class TrainingSessionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:2000',
             'mode' => 'required|string|in:virtual,physical',
             'venue' => 'required|string',
-            'date' => 'required|date',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
+            'date' => 'required|date|after_or_equal:today',
+            'start_time' => 'required|date_format:H:i|after_or_equal:09:00|before:end_time',
+            'end_time' => 'required|date_format:H:i|after:start_time|before_or_equal:18:00',
             'duration' => 'required|integer',
         ]);
 
