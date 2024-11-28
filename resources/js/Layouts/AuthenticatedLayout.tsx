@@ -22,7 +22,7 @@ export default function Authenticated({
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                                    <ApplicationLogo />
                                 </Link>
                             </div>
 
@@ -32,6 +32,20 @@ export default function Authenticated({
                                     active={route().current('dashboard')}
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    href={route('users.index')}
+                                    active={route().current('users.index')}
+                                >
+                                    Users
+                                </NavLink>
+                                <NavLink
+                                    href={route('training-sessions.index')}
+                                    active={route().current(
+                                        'training-sessions.index',
+                                    )}
+                                >
+                                    Training
                                 </NavLink>
                             </div>
                         </div>
@@ -136,6 +150,19 @@ export default function Authenticated({
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('users.index')}
+                            active={route().current('users.index')}
+                        >
+                            Users
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href={route('training-sessions.index')}
+                            active={route().current('training-sessions.index')}
+                        >
+                            Training
                         </ResponsiveNavLink>
                     </div>
 

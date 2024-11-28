@@ -20,7 +20,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'gender',
+        'role',
+        'phone_number',
+        'avatar',
+        'password'
     ];
 
     /**
@@ -44,5 +48,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the training sessions for the user.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function trainingSessions()
+    {
+        return $this->hasMany(TrainingSession::class);
     }
 }
