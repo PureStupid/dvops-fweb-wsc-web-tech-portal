@@ -44,5 +44,4 @@ class TrainingSessionController extends Controller
 
         return redirect()->route('training-sessions.index')->with('message', 'Training session created successfully.');
     }
-
 }
