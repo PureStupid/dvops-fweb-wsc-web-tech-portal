@@ -17,6 +17,7 @@
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
+        "derekmd/laravel-dusk-firefox": "^3.0",
         "fakerphp/faker": "^1.23",
         "laravel/breeze": "^2.2",
         "laravel/dusk": "^8.2",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb4bab1b4f770f52cb12a9e3cf751052",
+    "content-hash": "30811a0e188e1944175530f9045c0e64",
     "packages": [
         {
             "name": "brick/math",
@@ -5917,6 +5917,69 @@
                 }
             ],
             "time": "2024-10-15T12:38:31+00:00"
+        },
+        {
+            "name": "derekmd/laravel-dusk-firefox",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/derekmd/laravel-dusk-firefox.git",
+                "reference": "0b7e2cfd4e23f3d7158faf0567a6cd0094d59281"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/derekmd/laravel-dusk-firefox/zipball/0b7e2cfd4e23f3d7158faf0567a6cd0094d59281",
+                "reference": "0b7e2cfd4e23f3d7158faf0567a6cd0094d59281",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.5",
+                "laravel/dusk": "^8.0",
+                "php": "^8.1",
+                "php-webdriver/webdriver": "^1.15.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.64",
+                "mockery/mockery": "^1.6.12",
+                "orchestra/testbench": "^8.19|^9.0",
+                "phpunit/phpunit": "^10.1|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Derekmd\\Dusk\\DuskServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Derekmd\\Dusk\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Derek MacDonald",
+                    "email": "derekmd@hotmail.com"
+                }
+            ],
+            "description": "Run Laravel Dusk tests in a Firefox browser",
+            "homepage": "https://github.com/derekmd/laravel-dusk-firefox",
+            "keywords": [
+                "dusk",
+                "firefox",
+                "geckodriver",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/derekmd/laravel-dusk-firefox/issues",
+                "source": "https://github.com/derekmd/laravel-dusk-firefox"
+            },
+            "time": "2024-10-20T23:30:22+00:00"
         },
         {
             "name": "doctrine/deprecations",
