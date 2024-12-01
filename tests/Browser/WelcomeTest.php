@@ -2,10 +2,10 @@
 
 use Laravel\Dusk\Browser;
 
-test('home page', function () {
+test('welcome page', function () {
     $this->browse(function (Browser $browser) {
         $browser->visit('/')
-            ->screenshot('home-page')
+            ->screenshot('welcome-page')
             ->assertSeeIn('h1', 'WSC Tech Management Portal');
     });
 });
