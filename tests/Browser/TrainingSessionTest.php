@@ -3,15 +3,15 @@
 use App\Models\User;
 use Laravel\Dusk\Browser;
 
-test('dashboard page is not displayed when not authenticated', function () {
+test('training session page is not displayed when not authenticated', function () {
     $this->browse(function (Browser $browser) {
-        $browser->visit('/dashboard')
+        $browser->visit('/training-sessions')
             ->waitForLocation('/login')
             ->assertPathIs('/login');
     });
 });
 
-test('dashboard page is displayed when authenticated as student', function () {
+test('training session page is displayed when authenticated as student', function () {
     $student = User::create([
         'name' => 'James Lee',
         'email' => '2301234A@student.tp.edu.sg',
@@ -20,16 +20,17 @@ test('dashboard page is displayed when authenticated as student', function () {
         'role' => 'student',
         'password' => 'test',
     ]);
+
     $this->browse(function (Browser $browser) use ($student) {
         $browser->loginAs($student)
-            ->visit('/dashboard')
-            ->assertPathIs('/dashboard')
-            ->screenshot('dashboard-page-authenticated-student')
-            ->assertSee('Dashboard');
+            ->visit('/training-sessions')
+            ->assertPathIs('/training-sessions')
+            ->screenshot('training-session-page-authenticated-student')
+            ->assertSee('Training');
     });
 });
 
-test('dashboard page is displayed when authenticated as lecturer', function () {
+test('training session page is displayed when authenticated as lecturer', function () {
     $lecturer = User::create([
         'name' => 'Ana Yap',
         'email' => 'ana_yap@tp.edu.sg',
@@ -38,12 +39,12 @@ test('dashboard page is displayed when authenticated as lecturer', function () {
         'role' => 'lecturer',
         'password' => 'test',
     ]);
+
     $this->browse(function (Browser $browser) use ($lecturer) {
         $browser->loginAs($lecturer)
-            ->visit('/dashboard')
-            ->assertPathIs('/dashboard')
-            ->screenshot('dashboard-page-authenticated-lecturer')
-            ->assertSee('Dashboard');
+            ->visit('/training-sessions')
+            ->assertPathIs('/training-sessions')
+            ->screenshot('training-session-page-authenticated-lecturer')
+            ->assertSee('Training');
     });
 });
-
