@@ -12,9 +12,9 @@ test('welcome page is displayed when not authenticated', function () {
 });
 
 test('welcome page is displayed when authenticated', function () {
-    $student = User::factory()->create();
-    $this->browse(function (Browser $browser) use ($student) {
-        $browser->loginAs($student)
+    $user = User::factory()->create();
+    $this->browse(function (Browser $browser) use ($user) {
+        $browser->loginAs($user)
             ->visit('/')
             ->screenshot('welcome-page-authenticated')
             ->assertSeeIn('h1', 'WSC Tech Management Portal');

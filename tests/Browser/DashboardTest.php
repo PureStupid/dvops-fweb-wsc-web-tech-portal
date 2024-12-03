@@ -13,9 +13,9 @@ test('dashboard page is not displayed when not authenticated', function () {
 });
 
 test('dashboard page is displayed when authenticated', function () {
-    $student = User::factory()->create();
-    $this->browse(function (Browser $browser) use ($student) {
-        $browser->loginAs($student)
+    $user = User::factory()->create();
+    $this->browse(function (Browser $browser) use ($user) {
+        $browser->loginAs($user)
             ->visit('/dashboard')
             ->assertPathIs('/dashboard')
             ->screenshot('dashboard-page-authenticated')
