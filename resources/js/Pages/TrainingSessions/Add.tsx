@@ -151,7 +151,7 @@ const Add: React.FC = () => {
                     <InputError message={errors.date} className="mt-2" />
                     <InputLabel htmlFor="start_time" value="Start Time" />
                     <TextInput
-                        id="start_time"
+                        id="startTime"
                         type="time"
                         className="w-full"
                         value={data.start_time}
@@ -164,7 +164,7 @@ const Add: React.FC = () => {
                     <InputError message={errors.start_time} className="mt-2" />
                     <InputLabel htmlFor="end_time" value="End Time" />
                     <TextInput
-                        id="end_time"
+                        id="endTime"
                         type="time"
                         className="w-full"
                         value={data.end_time}
