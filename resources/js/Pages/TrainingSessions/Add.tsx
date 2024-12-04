@@ -9,7 +9,7 @@ import { Mode, TrainingSession } from '@/types/training-session.entity';
 import { Head, useForm } from '@inertiajs/react';
 import React, { FormEventHandler } from 'react';
 
-const Index: React.FC = () => {
+const Add: React.FC = () => {
     const { data, setData, errors, processing, post } = useForm<
         Partial<TrainingSession>
     >({
@@ -20,9 +20,9 @@ const Index: React.FC = () => {
         date: undefined,
         start_time: '',
         end_time: '',
-        duration: undefined,
+        duration: '',
     });
-    const calculateDuration = (startTime: string, endTime: string): number => {
+    const calculateDuration = (startTime: string, endTime: string): string => {
         const [startHours, startMinutes] = startTime.split(':').map(Number);
         const [endHours, endMinutes] = endTime.split(':').map(Number);
 
@@ -32,9 +32,12 @@ const Index: React.FC = () => {
         const endDate = new Date();
         endDate.setHours(endHours, endMinutes);
 
-        const durationInHours =
-            (endDate.getTime() - startDate.getTime()) / 3600000;
-        return durationInHours;
+        const durationInMinutes =
+            (endDate.getTime() - startDate.getTime()) / 60000;
+        const hours = Math.floor(durationInMinutes / 60);
+        const minutes = durationInMinutes % 60;
+
+        return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
     };
 
     const calculateMinEndTime = (startTime: string): string => {
@@ -56,6 +59,7 @@ const Index: React.FC = () => {
         }
         console.log(data);
         post(route('training-sessions.store'));
+        console.log(errors);
     };
 
     return (
@@ -174,9 +178,12 @@ const Index: React.FC = () => {
                         onChange={(e) => setData('end_time', e.target.value)}
                         required
                     />
-
                     <div className="flex justify-end">
-                        <PrimaryButton className="" disabled={processing}>
+                        <PrimaryButton
+                            id="submit"
+                            className=""
+                            disabled={processing}
+                        >
                             Add
                         </PrimaryButton>
                     </div>
@@ -185,4 +192,4 @@ const Index: React.FC = () => {
         </Authenticated>
     );
 };
-export default Index;
+export default Add;
