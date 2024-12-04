@@ -4,14 +4,14 @@ namespace Tests\Browser\Pages;
 
 use Laravel\Dusk\Browser;
 
-class WelcomePage extends Page
+class TrainingSessionPage extends Page
 {
     /**
      * Get the URL for the page.
      */
     public function url() : string
     {
-        return '/';
+        return '/training-sessions';
     }
 
     /**
