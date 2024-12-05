@@ -2,6 +2,8 @@
 
 use App\Models\User;
 
+covers(User::class);
+
 test('profile page is displayed', function () {
     $user = User::factory()->create();
 

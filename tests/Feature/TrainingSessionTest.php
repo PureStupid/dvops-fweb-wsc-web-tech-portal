@@ -3,6 +3,8 @@
 use App\Models\TrainingSession;
 use App\Models\User;
 
+covers(TrainingSession::class);
+
 test('training session page redirects to login page when not authenticated', function () {
     $response = $this->get('/training-sessions');
 
@@ -11,6 +13,8 @@ test('training session page redirects to login page when not authenticated', fun
         ->assertRedirect('/login');
 
     $this->assertGuest();
+
+    expect($response)->toMatchSnapshot();
 });
 
 test('training session page is displayed when authenticated', function () {
@@ -33,6 +37,8 @@ test('add training session form page redirects to login page when not authentica
         ->assertRedirect('/login');
 
     $this->assertGuest();
+
+    expect($response)->toMatchSnapshot();
 });
 
 test('add training session form page is displayed when authenticated', function () {
@@ -59,6 +65,8 @@ test('training session cannot be created when not authenticated', function () {
     $this
         ->assertGuest()
         ->assertDatabaseMissing('training_sessions', $trainingSession->toArray());
+
+    expect($response)->toMatchSnapshot();
 });
 
 test('training session can be created when authenticated', function () {
@@ -77,6 +85,10 @@ test('training session can be created when authenticated', function () {
     $this
         ->assertAuthenticated()
         ->assertDatabaseHas('training_sessions', $trainingSession->toArray());
+
+    expect(TrainingSession::latest('id')->first())->toMatchArray($trainingSession->toArray());
+    expect($response)->toMatchSnapshot();
+
 });
 
 test('training session cannot be created without required fields', function () {
@@ -94,6 +106,10 @@ test('training session cannot be created without required fields', function () {
     $this
         ->assertAuthenticated()
         ->assertDatabaseMissing('training_sessions', []);
+
+    expect(TrainingSession::latest('id')->first())->toBeNull();
+    expect($response)->toMatchSnapshot();
+
 });
 
 test('training session cannot be created with validation errors', function () {
@@ -120,4 +136,7 @@ test('training session cannot be created with validation errors', function () {
     $this
         ->assertAuthenticated()
         ->assertDatabaseMissing('training_sessions', $trainingSession->toArray());
+
+    expect(TrainingSession::latest('id')->first())->toBeNull();
+    expect($response)->toMatchSnapshot();
 });
