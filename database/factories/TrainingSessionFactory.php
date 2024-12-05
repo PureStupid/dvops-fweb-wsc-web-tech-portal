@@ -36,7 +36,7 @@ class TrainingSessionFactory extends Factory
 
         return [
             'title' => fake()->sentence(),
-            'description' => fake()->paragraph(),
+            'description' => fake()->paragraph(1),
             'mode' => fake()->randomElement(['virtual', 'physical']),
             'venue' => fake()->address(),
             'date' => fake()->dateTimeBetween('now', '+1 year')->format('Y-m-d'),
