@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\TrainingSessionController;
 use App\Models\TrainingSession;
 use App\Models\User;
 
-covers(TrainingSession::class);
+covers(TrainingSessionController::class);
 
 test('training session page redirects to login page when not authenticated', function () {
     $response = $this->get('/training-sessions');
