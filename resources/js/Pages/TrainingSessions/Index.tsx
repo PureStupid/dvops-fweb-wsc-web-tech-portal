@@ -22,7 +22,9 @@ const Index: React.FC<PageProps> = ({ flash }) => {
                     )}
                     {
                         <Link href={route('training-sessions.create')}>
-                            <PrimaryButton>Add Training</PrimaryButton>
+                            <PrimaryButton id="addTrainingSession">
+                                Add Training
+                            </PrimaryButton>
                         </Link>
                     }
                 </div>

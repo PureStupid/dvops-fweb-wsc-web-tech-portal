@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -39,7 +39,7 @@ class UserController extends Controller
             'gender' => 'required|in:female,male',
             'role' => 'required|in:student,lecturer',
             'phone_number' => ['required', 'regex:/^[6,8-9]\d{7}$/', 'unique:users'],
-            'avatar_file' => 'file|mimes:png,jpg,jpeg'
+            'avatar_file' => 'file|mimes:png,jpg,jpeg',
         ]);
 
         $emailDomain = Str::after($request->email, '@');
@@ -48,7 +48,7 @@ class UserController extends Controller
         }
         if ($request->role === 'student') {
             $adminNumber = Str::before($request->email, '@');
-            if (!preg_match('/^2\d{6}[a-zA-Z]$/', $adminNumber)) {
+            if (! preg_match('/^2\d{6}[a-zA-Z]$/', $adminNumber)) {
                 return back()->withErrors(['email' => 'Student email format is invalid'])->withInput();
             }
         }
@@ -62,7 +62,6 @@ class UserController extends Controller
         }
 
         return redirect()->route('users.index')->with('message', 'User created successfully');
-
 
     }
 

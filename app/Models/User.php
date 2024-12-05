@@ -24,7 +24,7 @@ class User extends Authenticatable
         'role',
         'phone_number',
         'avatar',
-        'password'
+        'password',
     ];
 
     /**
@@ -52,6 +52,7 @@ class User extends Authenticatable
 
     /**
      * Get the training sessions for the user.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function trainingSessions()

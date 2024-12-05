@@ -11,7 +11,7 @@ export default function Welcome({ auth }: PageProps) {
                     <div className="relative flex w-full max-w-2xl grow flex-col px-6 lg:max-w-7xl">
                         <main className="mb-10 flex grow flex-col items-center justify-center text-center">
                             <h1 className="mb-6 text-7xl">
-                                WSC Tech<br></br>Management Portal
+                                WSC Tech Management Portal
                             </h1>
                             <p className="mb-10">
                                 Temasek Polytechnic | School of Informatics & IT

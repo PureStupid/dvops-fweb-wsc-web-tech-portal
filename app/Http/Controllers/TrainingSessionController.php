@@ -33,16 +33,15 @@ class TrainingSessionController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
             'mode' => 'required|string|in:virtual,physical',
-            'venue' => 'required|string',
+            'venue' => 'required|string|max:255',
             'date' => 'required|date|after_or_equal:today',
             'start_time' => 'required|date_format:H:i|after_or_equal:09:00|before:end_time',
             'end_time' => 'required|date_format:H:i|after:start_time|before_or_equal:18:00',
-            'duration' => 'required|integer',
+            'duration' => 'required|date_format:H:i',
         ]);
 
         TrainingSession::create($request->all());
 
         return redirect()->route('training-sessions.index')->with('message', 'Training session created successfully.');
     }
-
 }

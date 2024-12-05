@@ -8,7 +8,7 @@ import { Gender, Role, User } from '@/types/user.entity';
 import { Head, useForm } from '@inertiajs/react';
 import React, { FormEventHandler } from 'react';
 
-const Index: React.FC = () => {
+const Add: React.FC = () => {
     interface UserForm extends Partial<User> {
         avatar_file: File | undefined; // Add avatarFile for file upload
     }
@@ -25,7 +25,10 @@ const Index: React.FC = () => {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         if (data.email && !data.email.includes('@')) {
-            data.email += Role.Student ? '@student.tp.edu.sg' : '@tp.edu.sg';
+            data.email +=
+                data.role === Role.Student
+                    ? '@student.tp.edu.sg'
+                    : '@tp.edu.sg';
         }
         console.log(data);
         post(route('users.store'));
@@ -213,4 +216,4 @@ const Index: React.FC = () => {
     );
 };
 
-export default Index;
+export default Add;

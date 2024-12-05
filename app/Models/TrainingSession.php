@@ -28,6 +28,7 @@ class TrainingSession extends Model
 
     /**
      * Get the user that owns the training session.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function users()
