@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Models\User;
 
-covers(UserController::class);
+covers(ProfileController::class);
 
 test('profile page is displayed', function () {
     $user = User::factory()->create();
