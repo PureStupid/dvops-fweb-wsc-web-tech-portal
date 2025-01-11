@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\TrainingSession;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'gender' => 'male',
             'phone_number' => 91234567,
             'role' => 'student',
-            'password' => 'test'
+            'password' => 'test',
         ]);
         User::create([
             'name' => 'Ana Yap',
@@ -28,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'gender' => 'female',
             'phone_number' => 81234567,
             'role' => 'lecturer',
-            'password' => 'test'
+            'password' => 'test',
         ]);
     }
 }
