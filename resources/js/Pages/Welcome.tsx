@@ -1,3 +1,4 @@
+import ApplicationLogo from '@/Components/ApplicationLogo';
 import SecondaryButton from '@/Components/SecondaryButton';
 import { PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
@@ -6,10 +7,11 @@ export default function Welcome({ auth }: PageProps) {
     return (
         <>
             <Head title="Welcome" />
-            <div className="bg-[url('/images/background.jpg')] text-black dark:text-white/50">
+            <div className="bg-[url('/images/background-light.jpg')] text-black dark:bg-[url('/images/background-dark.jpg')] dark:text-white/50">
                 <div className="relative flex min-h-screen flex-col items-center selection:bg-[#FF2D20] selection:text-white">
                     <div className="relative flex w-full max-w-2xl grow flex-col px-6 lg:max-w-7xl">
                         <main className="mb-10 flex grow flex-col items-center justify-center text-center">
+                            <ApplicationLogo />
                             <h1 className="mb-6 text-7xl">
                                 WSC Tech Management Portal
                             </h1>
