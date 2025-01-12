@@ -43,7 +43,7 @@ jobs:
     - name: Create Database
       env:
         DB_CONNECTION: MySQL
-        BASE_NAME: testdb
+        DB_DATABASE: testdb
         DB_USERNAME: root          
         DB_PASSWORD: testrootpass          
         DB_HOST: 127.0.0.1 # Will not work with 'localhost', since that will try a Unix socket connection (!)
