@@ -30,10 +30,10 @@ jobs:
         run: php artisan migrate:fresh --seed
       - name: Run Laravel Server
         run: php artisan serve --no-reload &
-      - name: Run Pest Tests
-        run: php artisan test
       - name: Run Dusk Tests
         run: php artisan dusk
+      - name: Run Pest Tests
+        run: php artisan test
       - name: Upload Screenshots
         if: failure()
         uses: actions/upload-artifact@v4
