@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="refresh" content="0;url='http://localhost:8000/training-sessions'" />
+        <meta http-equiv="refresh" content="0;url='http://127.0.0.1:8000/training-sessions'" />
 
-        <title>Redirecting to http://localhost:8000/training-sessions</title>
+        <title>Redirecting to http://127.0.0.1:8000/training-sessions</title>
     </head>
     <body>
-        Redirecting to <a href="http://localhost:8000/training-sessions">http://localhost:8000/training-sessions</a>.
+        Redirecting to <a href="http://127.0.0.1:8000/training-sessions">http://127.0.0.1:8000/training-sessions</a>.
     </body>
 </html>

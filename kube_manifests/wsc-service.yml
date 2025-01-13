@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wsc-service
+  labels:
+    app: wsc-portal
+spec:
+  type: LoadBalancer
+  selector:
+    app: wsc-portal
+  ports:
+    - port: 80
+      targetPort: 5050
