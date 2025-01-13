@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wsc-portal
+  labels:
+    app: wsc-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wsc-portal-img
+  template:
+    metadata:
+      labels:
+        app: wsc-portal-img
+    spec:
+      initContainers:
+        - name: init-db
+          image: mysql:8.0
+          command: ['sh', '-c']
+          args:
+            - until mysql -h mysql -u root -p$MYSQL_ROOT_PASSWORD -e "USE $MYSQL_DATABASE"; do
+              sleep 5;
+              done;
+          env:
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: MYSQL_DATABASE
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: MYSQL_ROOT_PASSWORD
+      containers:
+        - name: wsc-portal-container
+          image: usertp/dvops-fweb-wsc-web-tech-portal:latest
+          args: ['migrate']
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /var/www/html/storage/app
+              name: app-storage
+          envFrom:
+            - secretRef:
+                name: app-secret
+      securityContext:
+        fsGroup: 33
+      volumes:
+        - name: app-storage
+          persistentVolumeClaim:
+            claimName: azure-managed-disk-pvc
