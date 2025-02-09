@@ -71,123 +71,159 @@ const Add: React.FC = () => {
             }
         >
             <Head title="Add Training Session" />
-            <div className="mx-auto max-w-lg sm:p-6 lg:p-8">
-                <form onSubmit={submit} className="space-y-4">
-                    <InputLabel htmlFor="title" value="Title" />
-                    <TextInput
-                        id="title"
-                        className="w-full"
-                        value={data.title}
-                        maxLength={255}
-                        onChange={(e) => setData('title', e.target.value)}
-                        required
-                    />
-                    <InputError message={errors.title} className="mt-2" />
-                    <InputLabel htmlFor="description" value="Description" />
-                    <TextArea
-                        id="description"
-                        className="w-full"
-                        value={data.description}
-                        maxLength={2000}
-                        onChange={(e) => setData('description', e.target.value)}
-                        required
-                    />
-                    <div className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Mode
+            <div className="py-12">
+                <div className="mx-auto max-w-xl space-y-6 sm:px-6 lg:px-8">
+                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
+                        {' '}
+                        <form onSubmit={submit} className="space-y-4">
+                            <InputLabel htmlFor="title" value="Title" />
+                            <TextInput
+                                id="title"
+                                className="w-full"
+                                value={data.title}
+                                maxLength={255}
+                                onChange={(e) =>
+                                    setData('title', e.target.value)
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.title}
+                                className="mt-2"
+                            />
+                            <InputLabel
+                                htmlFor="description"
+                                value="Description"
+                            />
+                            <TextArea
+                                id="description"
+                                className="w-full"
+                                value={data.description}
+                                maxLength={2000}
+                                onChange={(e) =>
+                                    setData('description', e.target.value)
+                                }
+                                required
+                            />
+                            <div className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Mode
+                            </div>
+                            <div
+                                className="grid grid-cols-2 gap-x-2"
+                                id="modeRadioButtonGroup"
+                            >
+                                <RadioButton
+                                    id="virtualRadioButton"
+                                    value="virtual"
+                                    label="Virtual"
+                                    name="mode"
+                                    checked={data.mode === Mode.Virtual}
+                                    onChange={(e) =>
+                                        setData('mode', e.target.value as Mode)
+                                    }
+                                    required
+                                />
+                                <RadioButton
+                                    id="physicalRadioButton"
+                                    value="physical"
+                                    label="Physical"
+                                    name="mode"
+                                    checked={data.mode === Mode.Physical}
+                                    onChange={(e) =>
+                                        setData('mode', e.target.value as Mode)
+                                    }
+                                    required
+                                />
+                            </div>
+                            <InputError
+                                message={errors.mode}
+                                className="mt-2"
+                            />
+                            <InputLabel htmlFor="venue" value="Venue" />
+                            <TextInput
+                                id="venue"
+                                className="w-full"
+                                value={data.venue}
+                                onChange={(e) =>
+                                    setData('venue', e.target.value)
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.venue}
+                                className="mt-2"
+                            />
+                            <InputLabel htmlFor="date" value="Date" />
+                            <TextInput
+                                id="date"
+                                type="date"
+                                className="w-full"
+                                value={
+                                    data.date
+                                        ? data.date.toISOString().split('T')[0]
+                                        : ''
+                                }
+                                min={new Date().toISOString().split('T')[0]}
+                                onChange={(e) =>
+                                    setData('date', new Date(e.target.value))
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.date}
+                                className="mt-2"
+                            />
+                            <InputLabel
+                                htmlFor="start_time"
+                                value="Start Time"
+                            />
+                            <TextInput
+                                id="startTime"
+                                type="time"
+                                className="w-full"
+                                value={data.start_time}
+                                min={'09:00'}
+                                max={'18:00'}
+                                step={'900'} // 15 minutes
+                                onChange={(e) =>
+                                    setData('start_time', e.target.value)
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.start_time}
+                                className="mt-2"
+                            />
+                            <InputLabel htmlFor="end_time" value="End Time" />
+                            <TextInput
+                                id="endTime"
+                                type="time"
+                                className="w-full"
+                                value={data.end_time}
+                                min={
+                                    data.start_time
+                                        ? calculateMinEndTime(data.start_time)
+                                        : '09:15'
+                                }
+                                max={'18:00'}
+                                step={'900'} // 15 minutes
+                                onChange={(e) =>
+                                    setData('end_time', e.target.value)
+                                }
+                                required
+                            />
+                            <div className="flex justify-end">
+                                <PrimaryButton
+                                    id="submit"
+                                    className=""
+                                    disabled={processing}
+                                >
+                                    Add
+                                </PrimaryButton>
+                            </div>
+                        </form>
                     </div>
-                    <div
-                        className="grid grid-cols-2 gap-x-2"
-                        id="modeRadioButtonGroup"
-                    >
-                        <RadioButton
-                            id="virtualRadioButton"
-                            value="virtual"
-                            label="Virtual"
-                            name="mode"
-                            checked={data.mode === Mode.Virtual}
-                            onChange={(e) =>
-                                setData('mode', e.target.value as Mode)
-                            }
-                            required
-                        />
-                        <RadioButton
-                            id="physicalRadioButton"
-                            value="physical"
-                            label="Physical"
-                            name="mode"
-                            checked={data.mode === Mode.Physical}
-                            onChange={(e) =>
-                                setData('mode', e.target.value as Mode)
-                            }
-                            required
-                        />
-                    </div>
-                    <InputError message={errors.mode} className="mt-2" />
-                    <InputLabel htmlFor="venue" value="Venue" />
-                    <TextInput
-                        id="venue"
-                        className="w-full"
-                        value={data.venue}
-                        onChange={(e) => setData('venue', e.target.value)}
-                        required
-                    />
-                    <InputError message={errors.venue} className="mt-2" />
-                    <InputLabel htmlFor="date" value="Date" />
-                    <TextInput
-                        id="date"
-                        type="date"
-                        className="w-full"
-                        value={
-                            data.date
-                                ? data.date.toISOString().split('T')[0]
-                                : ''
-                        }
-                        min={new Date().toISOString().split('T')[0]}
-                        onChange={(e) =>
-                            setData('date', new Date(e.target.value))
-                        }
-                        required
-                    />
-                    <InputError message={errors.date} className="mt-2" />
-                    <InputLabel htmlFor="start_time" value="Start Time" />
-                    <TextInput
-                        id="startTime"
-                        type="time"
-                        className="w-full"
-                        value={data.start_time}
-                        min={'09:00'}
-                        max={'18:00'}
-                        step={'900'} // 15 minutes
-                        onChange={(e) => setData('start_time', e.target.value)}
-                        required
-                    />
-                    <InputError message={errors.start_time} className="mt-2" />
-                    <InputLabel htmlFor="end_time" value="End Time" />
-                    <TextInput
-                        id="endTime"
-                        type="time"
-                        className="w-full"
-                        value={data.end_time}
-                        min={
-                            data.start_time
-                                ? calculateMinEndTime(data.start_time)
-                                : '09:15'
-                        }
-                        max={'18:00'}
-                        step={'900'} // 15 minutes
-                        onChange={(e) => setData('end_time', e.target.value)}
-                        required
-                    />
-                    <div className="flex justify-end">
-                        <PrimaryButton
-                            id="submit"
-                            className=""
-                            disabled={processing}
-                        >
-                            Add
-                        </PrimaryButton>
-                    </div>
-                </form>
+                </div>
             </div>
         </Authenticated>
     );

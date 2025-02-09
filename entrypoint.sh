@@ -8,6 +8,7 @@ php artisan view:clear
 # Symbolic link to storage
 php artisan storage:link
 
+# Run migrations if the first arg is migrate
 if [ "$1" == "migrate" ]; then
     echo "Running migrations..."
     php artisan migrate --seed --force
