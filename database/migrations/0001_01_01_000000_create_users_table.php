@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->enum('gender', ['female', 'male']);
             $table->integer('phone_number');
-            $table->string('avatar')->nullable();
             $table->enum('role', ['student', 'lecturer']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default(Hash::make('#WSCTech123'));

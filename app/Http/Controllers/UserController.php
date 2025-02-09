@@ -14,7 +14,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Users/Index');
+        $roles = ['lecturer', 'student'];
+        $users = User::where('id', '<>', auth()->user()->id)->get()->groupBy('role');
+        $users = collect($roles)->mapWithKeys(function ($role) use ($users) {
+            return [$role => $users->get($role, collect([]))];
+        });
+        // dd($users);
+        // dd(compact('users'));
+        return Inertia::render('Users/Index', compact('users'));
     }
 
     /**
@@ -51,6 +58,7 @@ class UserController extends Controller
                 return back()->withErrors(['email' => 'Student email format is invalid'])->withInput();
             }
         }
+        User::create($request->all());
 
         return redirect()->route('users.index')->with('message', 'User created successfully');
 
@@ -69,6 +77,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        // dd(compact('user'));
         return Inertia::render('Users/Edit', compact('user'));
     }
 
@@ -97,6 +106,7 @@ class UserController extends Controller
                 return back()->withErrors(['email' => 'Student email format is invalid'])->withInput();
             }
         }
+        $user->update($request->all());
 
         return redirect()->route('users.index')->with('message', 'User updated successfully');
     }

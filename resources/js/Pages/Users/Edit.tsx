@@ -8,84 +8,45 @@ import { Gender, Role, User } from '@/types/user.entity';
 import { Head, useForm } from '@inertiajs/react';
 import React, { FormEventHandler } from 'react';
 
-const Add: React.FC = () => {
+const Edit: React.FC<{ user: User }> = ({ user }) => {
     type UserForm = Partial<User>;
 
-    const { data, setData, errors, processing, post } = useForm<UserForm>({
-        name: '',
-        email: '',
-        gender: undefined,
-        phone_number: undefined,
-        role: Role.Student,
+    const { data, setData, errors, processing, patch } = useForm<UserForm>({
+        name: user.name,
+        email: user.email,
+        gender: user.gender,
+        phone_number: user.phone_number,
     });
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         if (data.email && !data.email.includes('@')) {
             data.email +=
-                data.role === Role.Student
+                Role.Student === user.role
                     ? '@student.tp.edu.sg'
                     : '@tp.edu.sg';
         }
         console.log(data);
-        post(route('users.store'));
+        patch(route('users.update', { user: user.id }));
     };
 
     return (
         <Authenticated
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    Add User
+                    Edit User
                 </h2>
             }
         >
-            <Head title="Add User" />
+            <Head title="Edit User" />
             <div className="py-12">
                 <div className="mx-auto max-w-xl space-y-6 sm:px-6 lg:px-8">
                     <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
-                        <form onSubmit={submit} className="space-y-4">
-                            <div>
-                                <div className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    Role
-                                </div>
-
-                                <div
-                                    className="grid grid-cols-2 gap-x-2"
-                                    id="roleRadioButtonGroup"
-                                >
-                                    <RadioButton
-                                        id="studentRadioButton"
-                                        value="student"
-                                        label="Student"
-                                        name="role"
-                                        checked={data.role === Role.Student}
-                                        onChange={(e) =>
-                                            setData(
-                                                'role',
-                                                e.target.value as Role,
-                                            )
-                                        }
-                                        required
-                                    />
-                                    <RadioButton
-                                        id="lecturerRadioButton"
-                                        value="lecturer"
-                                        label="Lecturer"
-                                        name="role"
-                                        checked={data.role === Role.Lecturer}
-                                        onChange={(e) =>
-                                            setData(
-                                                'role',
-                                                e.target.value as Role,
-                                            )
-                                        }
-                                        required
-                                    />
-                                </div>
-                                <InputError
-                                    message={errors.role}
-                                    className="mt-2"
-                                />
-                            </div>
+                        {' '}
+                        <form
+                            onSubmit={submit}
+                            className="space-y-4"
+                            aria-label="form"
+                        >
                             <div>
                                 <InputLabel htmlFor="name" value="Name" />
 
@@ -105,6 +66,7 @@ const Add: React.FC = () => {
                                 <InputError
                                     message={errors.name}
                                     className="mt-2"
+                                    data-cy="name-error"
                                 />
                             </div>
                             <div>
@@ -121,7 +83,7 @@ const Add: React.FC = () => {
                                         setData('email', e.target.value)
                                     }
                                     trailingHelperText={
-                                        data.role === Role.Student
+                                        user.role === Role.Student
                                             ? '@student.tp.edu.sg'
                                             : '@tp.edu.sg'
                                     }
@@ -131,6 +93,7 @@ const Add: React.FC = () => {
                                 <InputError
                                     message={errors.email}
                                     className="mt-2"
+                                    data-cy="email-error"
                                 />
                             </div>
                             <div>
@@ -173,6 +136,7 @@ const Add: React.FC = () => {
                                 <InputError
                                     message={errors.gender}
                                     className="mt-2"
+                                    data-cy="gender-error"
                                 />
                             </div>
                             <div>
@@ -206,6 +170,7 @@ const Add: React.FC = () => {
                                 <InputError
                                     message={errors.phone_number}
                                     className="mt-2"
+                                    data-cy="phone-error"
                                 />
                             </div>
 
@@ -213,8 +178,9 @@ const Add: React.FC = () => {
                                 <PrimaryButton
                                     className=""
                                     disabled={processing}
+                                    data-cy="add-button"
                                 >
-                                    Add
+                                    Edit
                                 </PrimaryButton>
                             </div>
                         </form>
@@ -225,4 +191,4 @@ const Add: React.FC = () => {
     );
 };
 
-export default Add;
+export default Edit;
